@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Censo 2010–2022 | Crescimento Populacional e Oportunidades de Mercado no Brasil</title>
+  <meta name="description" content="Análise interativa do crescimento populacional dos 5.570 municípios brasileiros entre os Censos de 2010 e 2022, com dados oficiais do IBGE e leitura de oportunidades de mercado.">
+  <meta name="author" content="Projeto acadêmico — TIC Aplicada à Administração">
+  <meta property="og:title" content="Censo 2010–2022 | Crescimento Populacional e Oportunidades de Mercado">
+  <meta property="og:description" content="Uma leitura dos 5.570 municípios brasileiros com dados oficiais do IBGE.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header" id="topo">
+    <div class="container header__inner">
+      <a class="brand" href="#inicio">
+        <span class="brand__mark" aria-hidden="true">C</span>
+        <span class="brand__text">Censo <strong>2010–2022</strong></span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <a class="nav__link" href="#panorama">Panorama</a>
+        <a class="nav__link" href="#explorador">Explorador</a>
+        <a class="nav__link" href="#oportunidades">Oportunidades</a>
+        <a class="nav__link" href="#metodologia">Metodologia</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M12 2v2.2M12 19.8V22M2 12h2.2M19.8 12H22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="inicio">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow eyebrow--light">TIC Aplicada à Administração</p>
+          <h1>Crescimento populacional e oportunidades de mercado no Brasil</h1>
+          <p class="hero__lead">
+            Uma leitura dos <strong>5.570 municípios</strong> brasileiros a partir dos
+            Censos de 2010 e 2022, com dados oficiais do IBGE.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#explorador">Explorar municípios</a>
+            <a class="btn btn--ghost-light" href="#metodologia">Entender a metodologia</a>
+          </div>
+          <p class="hero__source">
+            <span class="status-dot" aria-hidden="true"></span>
+            Fonte: IBGE · API de Agregados e Localidades · Extração em
+            <span id="data-extracao">—</span>
+          </p>
+        </div>
+
+        <aside class="hero__panel" aria-label="Resumo nacional">
+          <div class="hero__panel-head">
+            <span class="hero__panel-title">Brasil</span>
+            <span class="pill">Censo 2022</span>
+          </div>
+
+          <div class="hero__stats">
+            <div class="hero-stat">
+              <span class="hero-stat__label">População 2022</span>
+              <strong class="hero-stat__value" id="hero-pop-2022">—</strong>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat__label">Crescimento 2010–2022</span>
+              <strong class="hero-stat__value" id="hero-growth">—</strong>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat__label">Taxa anual</span>
+              <strong class="hero-stat__value" id="hero-rate">—</strong>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat__label">Municípios analisados</span>
+              <strong class="hero-stat__value" id="hero-count">—</strong>
+            </div>
+          </div>
+
+          <div class="hero__bar-block">
+            <div class="hero__bar" role="img" aria-label="Distribuição dos municípios entre crescimento, estabilidade e queda">
+              <span class="hero__bar-growth" id="hero-bar-growth"></span>
+              <span class="hero__bar-stable" id="hero-bar-stable"></span>
+              <span class="hero__bar-decline" id="hero-bar-decline"></span>
+            </div>
+            <div class="hero__legend">
+              <span><i class="dot dot--growth"></i><b id="hero-legend-growth">—</b> crescendo</span>
+              <span><i class="dot dot--stable"></i><b id="hero-legend-stable">—</b> estáveis</span>
+              <span><i class="dot dot--decline"></i><b id="hero-legend-decline">—</b> em retração</span>
+            </div>
+          </div>
+
+          <p class="hero__note">Crescimento calculado sobre a base de 2010 compatibilizada pelo IBGE.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= PANORAMA ================= -->
+    <section class="section" id="panorama">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow">Panorama nacional</p>
+          <h2>O Brasil cresceu, mas de forma desigual</h2>
+          <p class="section__lead">
+            Entre 2010 e 2022, o país ganhou mais de 12 milhões de habitantes. Esse
+            crescimento, porém, não chegou a todos os municípios:
+            <strong id="panorama-growing">56,7%</strong> avançou,
+            <strong id="panorama-decline">38,0%</strong> entrou em retração e
+            <strong id="panorama-stable">5,4%</strong> ficou em estabilidade.
+          </p>
+        </header>
+
+        <div class="kpi-grid" id="kpi-grid" aria-live="polite"></div>
+
+        <div class="chart-grid">
+          <article class="card chart-card">
+            <header class="card__head">
+              <h3>População residente</h3>
+              <p>Brasil, Censos de 2010 e 2022</p>
+            </header>
+            <div class="chart-wrap">
+              <canvas id="chart-nacional" role="img" aria-label="Gráfico de barras com a população residente do Brasil em 2010 e 2022"></canvas>
+            </div>
+          </article>
+
+          <article class="card chart-card">
+            <header class="card__head">
+              <h3>Distribuição das taxas</h3>
+              <p>Municípios por faixa de crescimento anual</p>
+            </header>
+            <div class="chart-wrap">
+              <canvas id="chart-distribuicao" role="img" aria-label="Histograma da taxa de crescimento anual dos municípios"></canvas>
+            </div>
+          </article>
+        </div>
+
+        <div class="chart-grid chart-grid--wide">
+          <article class="card chart-card">
+            <header class="card__head">
+              <h3>Crescimento por região</h3>
+              <p>Taxa geométrica anual, 2010–2022</p>
+            </header>
+            <div class="chart-wrap chart-wrap--tall">
+              <canvas id="chart-regioes" role="img" aria-label="Gráfico de barras horizontais com a taxa de crescimento anual por região"></canvas>
+            </div>
+          </article>
+
+          <aside class="card insight-card">
+            <header class="card__head">
+              <h3>Leitura rápida</h3>
+              <p>O que os números mostram</p>
+            </header>
+            <ul class="insight-list" id="insights-list"></ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPLORADOR ================= -->
+    <section class="section section--alt" id="explorador">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow">Explorador</p>
+          <h2>Encontre o município que importa para a sua análise</h2>
+          <p class="section__lead">
+            Combine busca, região, UF, dinamismo e porte populacional. Clique em um
+            município para ver o detalhamento, a posição nos rankings e a consulta
+            original no IBGE.
+          </p>
+        </header>
+
+        <div class="explorer">
+          <aside class="filters card" aria-label="Filtros de municípios">
+            <div class="filters__head">
+              <h3>Filtros</h3>
+              <button class="link-btn" id="filters-clear" type="button">Limpar</button>
+            </div>
+
+            <label class="field">
+              <span>Buscar município</span>
+              <input id="filter-search" type="search" placeholder="Ex.: Manaus, Sorocaba..." autocomplete="off">
+            </label>
+
+            <label class="field">
+              <span>Região</span>
+              <select id="filter-region">
+                <option value="">Todas as regiões</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Unidade da federação</span>
+              <select id="filter-uf">
+                <option value="">Todas as UFs</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Dinamismo</span>
+              <select id="filter-growth">
+                <option value="">Todos</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Porte populacional</span>
+              <select id="filter-size">
+                <option value="">Todos</option>
+              </select>
+            </label>
+
+            <p class="filters__hint">
+              Os filtros são combinados e a contagem é atualizada automaticamente.
+            </p>
+          </aside>
+
+          <div class="explorer__main">
+            <div class="toolbar">
+              <p class="toolbar__count" id="results-count" aria-live="polite">Carregando…</p>
+              <div class="toolbar__actions">
+                <button class="btn btn--secondary btn--sm" id="export-csv" type="button">
+                  Baixar CSV
+                </button>
+              </div>
+            </div>
+
+            <div class="table-wrap card">
+              <table class="data-table" id="municipios-table">
+                <caption class="sr-only">
+                  Municípios brasileiros com população de 2010 e 2022, variação absoluta,
+                  taxa anual de crescimento e densidade demográfica.
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col" data-sort="nome" aria-sort="none">
+                      <button class="th-sort" type="button" data-sort="nome">Município <span class="sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                    <th scope="col" data-sort="uf" aria-sort="none">
+                      <button class="th-sort" type="button" data-sort="uf">UF <span class="sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                    <th scope="col" class="num" data-sort="pop2010Compat" aria-sort="none">
+                      <button class="th-sort" type="button" data-sort="pop2010Compat">Pop. 2010 <span class="sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                    <th scope="col" class="num" data-sort="pop2022" aria-sort="descending">
+                      <button class="th-sort" type="button" data-sort="pop2022">Pop. 2022 <span class="sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                    <th scope="col" class="num" data-sort="varAbs" aria-sort="none">
+                      <button class="th-sort" type="button" data-sort="varAbs">Var. abs. <span class="sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                    <th scope="col" class="num" data-sort="taxaAnual" aria-sort="none">
+                      <button class="th-sort" type="button" data-sort="taxaAnual">Taxa a.a. <span class="sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                    <th scope="col" class="num" data-sort="densidade2022" aria-sort="none">
+                      <button class="th-sort" type="button" data-sort="densidade2022">Dens. 2022 <span class="sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="municipios-tbody"></tbody>
+              </table>
+            </div>
+
+            <div class="cards-mobile" id="municipios-cards"></div>
+            <nav class="pagination" id="pagination" aria-label="Paginação da tabela de municípios"></nav>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OPORTUNIDADES ================= -->
+    <section class="section" id="oportunidades">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow">Oportunidades</p>
+          <h2>Onde o crescimento demográfico sugere atenção</h2>
+          <p class="section__lead">
+            A matriz abaixo cruza tamanho de mercado e dinamismo populacional. Ela não
+            mede demanda: organiza hipóteses para uma investigação gerencial mais
+            profunda, que deve incluir renda, concorrência e comportamento de consumo.
+          </p>
+        </header>
+
+        <div class="quadrant-grid" id="quadrant-grid"></div>
+
+        <div class="chart-grid chart-grid--wide">
+          <article class="card chart-card">
+            <header class="card__head">
+              <h3>Tamanho × dinamismo</h3>
+              <p>Cada ponto é um município. Eixo vertical em escala logarítmica.</p>
+            </header>
+            <div class="chart-wrap chart-wrap--tall">
+              <canvas id="chart-dispersao" role="img" aria-label="Gráfico de dispersão entre população de 2022 e taxa de crescimento anual, colorido por região"></canvas>
+            </div>
+            <p class="chart-note">
+              Linhas de referência: 0% de crescimento e 50 mil habitantes.
+            </p>
+          </article>
+
+          <article class="card">
+            <header class="card__head">
+              <h3>Maiores ganhos absolutos</h3>
+              <p>Municípios que mais somaram habitantes</p>
+            </header>
+            <ol class="rank-list" id="rank-absolute"></ol>
+          </article>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <header class="card__head">
+              <h3>Maiores taxas de crescimento</h3>
+              <p>Expansão acelerada, 2010–2022</p>
+            </header>
+            <ol class="rank-list" id="rank-growth"></ol>
+          </article>
+
+          <article class="card">
+            <header class="card__head">
+              <h3>Maiores quedas</h3>
+              <p>Retração populacional, 2010–2022</p>
+            </header>
+            <ol class="rank-list rank-list--negative" id="rank-decline"></ol>
+          </article>
+        </div>
+
+        <article class="card sector-card">
+          <header class="card__head">
+            <h3>Leitura setorial</h3>
+            <p>Hipóteses para investigação, não medidas de demanda</p>
+          </header>
+
+          <div class="table-wrap">
+            <table class="data-table data-table--text">
+              <caption class="sr-only">Relação entre perfis demográficos e setores para investigação</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Perfil demográfico</th>
+                  <th scope="col">Leitura de mercado</th>
+                  <th scope="col">Setores para investigação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Expansão acelerada + alta densidade</strong></td>
+                  <td>Mercado em expansão e com proximidade</td>
+                  <td>Varejo de proximidade, alimentação, serviços pessoais, educação, saúde</td>
+                </tr>
+                <tr>
+                  <td><strong>Expansão acelerada + baixa densidade</strong></td>
+                  <td>Fronteira de ocupação</td>
+                  <td>Construção, agroserviços, logística, serviços essenciais</td>
+                </tr>
+                <tr>
+                  <td><strong>Crescimento moderado + grande porte</strong></td>
+                  <td>Mercado maduro em expansão</td>
+                  <td>Serviços especializados, franquias, saúde, educação</td>
+                </tr>
+                <tr>
+                  <td><strong>Estabilidade ou retração + grande porte</strong></td>
+                  <td>Mercado consolidado</td>
+                  <td>Eficiência, nichos, serviços para idosos, consolidação</td>
+                </tr>
+                <tr>
+                  <td><strong>Retração + pequeno porte</strong></td>
+                  <td>Risco de mercado</td>
+                  <td>Cautela, negócios digitais/remotos, serviços essenciais</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="disclaimer">
+            <strong>Importante:</strong> crescimento populacional é um indicador de
+            potencial demográfico, não de demanda efetiva. A validação de uma
+            oportunidade exige renda, PIB, consumo, concorrência e dados primários.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= METODOLOGIA ================= -->
+    <section class="section section--alt" id="metodologia">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow">Metodologia</p>
+          <h2>Como os dados foram obtidos e tratados</h2>
+          <p class="section__lead">
+            Toda a base vem de APIs oficiais do IBGE. O projeto usa a variação
+            compatibilizada de 2010 para lidar com mudanças de limites municipais e
+            confere a taxa de crescimento pela fórmula geométrica.
+          </p>
+        </header>
+
+        <div class="method-grid">
+          <article class="card">
+            <h3>Fontes oficiais</h3>
+            <ul class="source-list" id="source-list"></ul>
+            <p class="card__note">
+              A página de documentação de Agregados do IBGE apresentou instabilidade
+              durante a verificação; as consultas foram testadas diretamente e
+              conferidas nas tabelas do SIDRA.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Fórmulas</h3>
+            <pre class="formula"><code>pop2010Compat = pop2022 − varAbs5936
+
+varRel (%) = (pop2022 / pop2010Compat − 1) × 100
+
+taxaAnual (%) = [(pop2022 / pop2010Compat)^(1/12) − 1] × 100
+
+densidade = população / áreaKm2_2022</code></pre>
+            <p class="card__note">
+              A taxa da UF é calculada sobre os totais, não pela média das taxas
+              municipais.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Classes de dinamismo</h3>
+            <table class="data-table data-table--compact">
+              <caption class="sr-only">Classes de dinamismo demográfico adotadas no projeto</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Classe</th>
+                  <th scope="col">Critério</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="badge badge--accel">Expansão acelerada</span></td><td>taxa ≥ +2,0% ao ano</td></tr>
+                <tr><td><span class="badge badge--moderate">Expansão moderada</span></td><td>0% &lt; taxa &lt; +2,0%</td></tr>
+                <tr><td><span class="badge badge--stable">Estabilidade</span></td><td>−0,1% ≤ taxa ≤ 0%</td></tr>
+                <tr><td><span class="badge badge--decline">Retração moderada</span></td><td>−1,0% ≤ taxa &lt; −0,1%</td></tr>
+                <tr><td><span class="badge badge--sharp">Retração acentuada</span></td><td>taxa &lt; −1,0%</td></tr>
+              </tbody>
+            </table>
+            <p class="card__note">
+              Critérios analíticos do projeto, não classificações oficiais do IBGE.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Limitações</h3>
+            <ul class="check-list">
+              <li>Censos de 2010 e 2022 têm datas de referência e métodos de coleta distintos.</li>
+              <li>Limites municipais mudaram; a base compatibilizada mitiga, mas não elimina esse efeito.</li>
+              <li>Cinco municípios criados após 2010 não têm população bruta de 2010.</li>
+              <li>Boa Esperança do Norte/MT não está no agregado 4709 e fica fora do universo.</li>
+              <li>População não mede renda, consumo ou poder de compra.</li>
+              <li>As classes e os perfis são construções analíticas do projeto.</li>
+              <li>A análise é exploratória e não permite previsão de demanda.</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="card provenance">
+          <div>
+            <h3>Proveniência e reprodutibilidade</h3>
+            <p id="provenance-text">Carregando informações da base…</p>
+            <p class="provenance__command">
+              <code>powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-data.ps1</code>
+            </p>
+          </div>
+          <div class="provenance__actions">
+            <button class="btn btn--secondary" id="refresh-data" type="button">Conferir na API</button>
+            <a class="btn btn--ghost" href="./data/municipios.csv" download>Baixar base completa</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <div>
+        <p class="footer__title">Censo 2010–2022</p>
+        <p class="footer__text">
+          Projeto acadêmico da disciplina Tecnologia da Informação e Comunicação
+          Aplicada à Administração. Dados oficiais do IBGE.
+        </p>
+      </div>
+      <div class="footer__links">
+        <a href="https://servicodados.ibge.gov.br/api/docs/agregados" target="_blank" rel="noopener">API do IBGE</a>
+        <a href="https://sidra.ibge.gov.br/tabela/4709" target="_blank" rel="noopener">SIDRA 4709</a>
+        <a href="https://sidra.ibge.gov.br/tabela/4714" target="_blank" rel="noopener">SIDRA 4714</a>
+        <a href="#topo">Voltar ao topo</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>Última extração: <span id="footer-data">—</span></span>
+      <span>Universo: <span id="footer-universo">—</span> municípios</span>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL ================= -->
+  <div class="modal" id="municipio-modal" hidden>
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal__close" type="button" aria-label="Fechar detalhes" data-close-modal>×</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./data/municipios.js" defer></script>
+  <script src="./assets/vendor/chart.umd.min.js" defer></script>
+  <script src="./assets/js/utils.js" defer></script>
+  <script src="./assets/js/config.js" defer></script>
+  <script src="./assets/js/data.js" defer></script>
+  <script src="./assets/js/charts.js" defer></script>
+  <script src="./assets/js/ui.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+</body>
+</html>

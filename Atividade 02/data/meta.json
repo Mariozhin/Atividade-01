@@ -1,0 +1,93 @@
+{
+    "projeto":  "Crescimento Populacional e Oportunidades de Mercado no Brasil",
+    "descricao":  "Comparação da população residente dos municípios brasileiros entre os Censos de 2010 e 2022, com dados oficiais do IBGE.",
+    "geradoEm":  "2026-11-09T12:05:34-03:00",
+    "fonte":  "IBGE — API de Agregados v3 e API de Localidades v1",
+    "consultas":  [
+                      {
+                          "nome":  "Localidades — municípios",
+                          "url":  "https://servicodados.ibge.gov.br/api/v1/localidades/municipios",
+                          "registros":  5571
+                      },
+                      {
+                          "nome":  "Agregado 4709 — população 2022, variação absoluta e taxa",
+                          "url":  "https://servicodados.ibge.gov.br/api/v3/agregados/4709/periodos/2022/variaveis/93|5936|10605?localidades=N6[all]",
+                          "registros":  5570
+                      },
+                      {
+                          "nome":  "Agregado 1378 — população 2010",
+                          "url":  "https://servicodados.ibge.gov.br/api/v3/agregados/1378/periodos/2010/variaveis/93?localidades=N6[all]\u0026classificacao=1[0]",
+                          "registros":  5565
+                      },
+                      {
+                          "nome":  "Agregado 4714 — área e densidade 2022",
+                          "url":  "https://servicodados.ibge.gov.br/api/v3/agregados/4714/periodos/2022/variaveis/6318|614?localidades=N6[all]",
+                          "registros":  5570
+                      }
+                  ],
+    "variaveis":  [
+                      {
+                          "agregado":  4709,
+                          "variavel":  93,
+                          "nome":  "População residente",
+                          "unidade":  "Pessoas"
+                      },
+                      {
+                          "agregado":  4709,
+                          "variavel":  5936,
+                          "nome":  "Variação absoluta da população residente 2010 compatibilizada",
+                          "unidade":  "Pessoas"
+                      },
+                      {
+                          "agregado":  4709,
+                          "variavel":  10605,
+                          "nome":  "Taxa de crescimento geométrico",
+                          "unidade":  "% ao ano"
+                      },
+                      {
+                          "agregado":  1378,
+                          "variavel":  93,
+                          "nome":  "População residente (2010)",
+                          "unidade":  "Pessoas"
+                      },
+                      {
+                          "agregado":  4714,
+                          "variavel":  6318,
+                          "nome":  "Área da unidade territorial",
+                          "unidade":  "km²"
+                      },
+                      {
+                          "agregado":  4714,
+                          "variavel":  614,
+                          "nome":  "Densidade demográfica",
+                          "unidade":  "hab/km²"
+                      }
+                  ],
+    "universo":  5570,
+    "totais":  {
+                   "pop2022":  203080756,
+                   "pop2010Compat":  190755799,
+                   "pop2010Censo":  190755799,
+                   "varAbs":  12324957
+               },
+    "validacao":  {
+                      "registros":  5570,
+                      "ufs":  27,
+                      "regioes":  5,
+                      "nulosCamposCentrais":  0,
+                      "formulaTaxaDivergencias":  0,
+                      "municipiosSem2010":  5,
+                      "municipiosComAjusteLimites":  1618,
+                      "somaPop2022":  203080756,
+                      "somaPop2010Compat":  190755799,
+                      "somaPop2010Censo":  190755799
+                  },
+    "observacoes":  [
+                        "A API de Localidades retorna 5.571 municípios; o agregado 4709 retorna 5.570. Boa Esperança do Norte/MT não possui dado no agregado e foi excluída da análise.",
+                        "Cinco municípios criados após 2010 não têm população bruta de 2010; a base compatibilizada do IBGE cobre esses casos.",
+                        "A população de 2010 compatibilizada é calculada como pop2022 menos a variação absoluta (variável 5936).",
+                        "A densidade usa a área territorial de 2022 para os dois anos, evitando viés por atualizações de limites.",
+                        "A taxa de crescimento geométrico foi conferida pela fórmula [(pop2022/pop2010Compat)^(1/12)-1]*100."
+                    ],
+    "checksumMunicipiosSha256":  "2837fa4087b57a64aae5741c5ab05156ced8a5b8e0f1ce4a298a4691b6fea0a2"
+}
