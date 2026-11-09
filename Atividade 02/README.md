@@ -82,7 +82,7 @@ cd "Atividade 02"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\serve.ps1 -Port 8080
 ```
 
-Acesse <(https://mariozhin.github.io/Atividade-01/Atividade%2002/?utm_source=chatgpt.com)>. Para outra porta, use `-Port 5500`.
+Acesse <https://mariozhin.github.io/Atividade-01/Atividade%2002/>. Para outra porta, use `-Port 5500`.
 
 ---
 
